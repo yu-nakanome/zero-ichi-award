@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-brand-deep-black text-brand-light font-sans antialiased overflow-x-hidden;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 bg-brand-orange text-white font-bold rounded-full transition-all 
+           hover:scale-105 active:scale-95 hover:bg-orange-600 disabled:bg-gray-700
+           shadow-[0_0_15px_-3px_rgba(255,77,0,0.5)];
+  }
+
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6;
+  }
+
+  .text-heat {
+    @apply bg-gradient-to-r from-[#FF4D00] via-[#FF8C00] to-[#FFCF00] bg-clip-text text-transparent font-black;
+  }
+
+  .heat-gradient {
+    @apply bg-gradient-to-r from-[#FF4D00] via-[#FF8C00] to-[#FFCF00];
+  }
+}
+
+/* NicoNico style chat overlay */
+.chat-overlay {
+  pointer-events: none;
+  position: absolute;
+  white-space: nowrap;
+  animation: move-left 10s linear;
+}
+
+@keyframes move-left {
+  from { right: -100%; }
+  to { right: 100%; }
+}
