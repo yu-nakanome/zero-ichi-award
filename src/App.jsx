@@ -113,7 +113,7 @@ export default function App() {
         {view === 'home' && (
           <div className="grid grid-cols-2 gap-4 pt-2 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {TEAMS.map((team) => {
-              const isLive = team.id === activeTeamId;
+              const isLive = false;
               return (
                 <div
                   key={team.id}
