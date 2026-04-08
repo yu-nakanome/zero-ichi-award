@@ -22,6 +22,7 @@ export default function App() {
   const [activeTeamId, setActiveTeamId] = useState(1);
   const [unreadCount, setUnreadCount] = useState(0);
   const isAdmin = window.location.search.includes('admin');
+  const [hasVoted, setHasVoted] = useState(false);
   useEffect(() => {
     if (!isSupabaseConfigured || !supabase) return;
 
@@ -39,6 +40,26 @@ export default function App() {
   useEffect(() => {
     if (view === 'chat') setUnreadCount(0);
   }, [view]);
+  useEffect(() => {
+    const checkVotingStatus = async () => {
+      // 準備ができていない場合は何もしない
+      if (!userId || !supabase) return;
+
+      // votesテーブルに自分のIDがあるか確認する
+      const { data, error } = await supabase
+        .from('votes')
+        .select('id')
+        .eq('user_id', userId)
+        .maybeSingle();
+
+      // もしデータが見つかったら、さっき作った「hasVoted」をtrue（投票済み）にする
+      if (data) {
+        setHasVoted(true);
+      }
+    };
+
+    checkVotingStatus();
+  }, [userId]);
 
   // 環境設定エラー画面
   if (!isSupabaseConfigured) {
@@ -132,16 +153,30 @@ export default function App() {
                   <p className="text-[10px] text-white/40 mb-5 line-clamp-2 leading-tight flex-1">
                     {team.description}
                   </p>
-
                   <button
                     onClick={() => {
-                      setSelectedTeamId(team.id);
-                      setView('voting');
+                      if (!hasVoted) {
+                        setSelectedTeamId(team.id);
+                        setView('voting');
+                      }
                     }}
-                    className="w-full py-3 bg-brand-orange text-white text-[10px] font-black rounded-xl flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-brand-orange/20"
+                    disabled={hasVoted}
+                    className={`w-full py-3 rounded-xl flex items-center justify-center gap-2 font-black text-[10px] transition-all ${hasVoted
+                      ? 'bg-white/10 text-white/20 cursor-not-allowed'
+                      : 'bg-brand-orange text-white hover:scale-[1.02] active:scale-95'
+                      }`}
                   >
-                    <Zap className="w-3.5 h-3.5 fill-current" />
-                    ⚡ 投票する
+                    {hasVoted ? (
+                      <>
+                        <span className="text-xs">✅</span>
+                        <span>投票済み</span>
+                      </>
+                    ) : (
+                      <>
+                        <Zap className="w-3.5 h-3.5 fill-current" />
+                        <span>⚡ 投票する</span>
+                      </>
+                    )}
                   </button>
                 </div>
               );
