@@ -73,10 +73,11 @@ export default function ChatOverlay() {
         <div
           key={msg.id}
           onAnimationEnd={() => handleEnd(msg.id)}
-          className="absolute whitespace-nowrap text-xl font-bold text-white/20 drop-shadow-[0_2px_12px_rgba(0,0,0,1.0)] leading-none select-none chat-overlay italic tracking-tighter"
+          className="absolute whitespace-nowrap text-3x1 font-bold text-white/20 drop-shadow-[0_2px_12px_rgba(0,0,0,1.0)] leading-none select-none chat-overlay italic tracking-tighter"
           style={{
             top: msg.top,
-            animationDuration: msg.duration,
+            // 今の秒数に「1.5」を掛けて、より長い時間をかけて流れるようにします
+            animationDuration: `${parseFloat(msg.duration) * 2.0}s`,
           }}
         >
           {msg.text}
