@@ -22,7 +22,7 @@ export default function App() {
   const [activeTeamId, setActiveTeamId] = useState(1);
   const [unreadCount, setUnreadCount] = useState(0);
   const isAdmin = window.location.search.includes('admin');
-  const [hasVoted, setHasVoted] = useState(false);
+  const [votedTeamIds, setVotedTeamIds] = useState([]);
   useEffect(() => {
     if (!isSupabaseConfigured || !supabase) return;
 
@@ -38,28 +38,25 @@ export default function App() {
   }, [view]);
 
   useEffect(() => {
-    if (view === 'chat') setUnreadCount(0);
-  }, [view]);
-  useEffect(() => {
     const checkVotingStatus = async () => {
-      // 準備ができていない場合は何もしない
       if (!userId || !supabase) return;
 
-      // votesテーブルに自分のIDがあるか確認する
+      // 1. 「id」ではなく「team_id」を取得するように変更
+      // 2. 「maybeSingle()」を消して、全部（複数）取得するように変更
       const { data, error } = await supabase
         .from('votes')
-        .select('id')
-        .eq('user_id', userId)
-        .maybeSingle();
+        .select('team_id')
+        .eq('user_id', userId);
 
-      // もしデータが見つかったら、さっき作った「hasVoted」をtrue（投票済み）にする
+      // もしデータがあったら、チームIDだけのリスト [1, 3] を作って箱に入れる
       if (data) {
-        setHasVoted(true);
+        const ids = data.map(v => v.team_id);
+        setVotedTeamIds(ids);
       }
     };
 
     checkVotingStatus();
-  }, [userId]);
+  }, [userId, supabase]); // supabaseも監視対象に入れておくとより確実です
 
   // 環境設定エラー画面
   if (!isSupabaseConfigured) {
@@ -134,6 +131,7 @@ export default function App() {
           <div className="grid grid-cols-2 gap-4 pt-2 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {TEAMS.map((team) => {
               const isLive = false;
+              const isThisTeamVoted = votedTeamIds.includes(team.id);
               return (
                 <div
                   key={team.id}
@@ -155,18 +153,18 @@ export default function App() {
                   </p>
                   <button
                     onClick={() => {
-                      if (!hasVoted) {
+                      if (!isThisTeamVoted) {
                         setSelectedTeamId(team.id);
                         setView('voting');
                       }
                     }}
-                    disabled={hasVoted}
-                    className={`w-full py-3 rounded-xl flex items-center justify-center gap-2 font-black text-[10px] transition-all ${hasVoted
+                    disabled={isThisTeamVoted}
+                    className={`w-full py-3 rounded-xl flex items-center justify-center gap-2 font-black text-[10px] transition-all ${isThisTeamVoted
                       ? 'bg-white/10 text-white/20 cursor-not-allowed'
                       : 'bg-brand-orange text-white hover:scale-[1.02] active:scale-95'
                       }`}
                   >
-                    {hasVoted ? (
+                    {isThisTeamVoted ? (
                       <>
                         <span className="text-xs">✅</span>
                         <span>投票済み</span>
@@ -190,7 +188,7 @@ export default function App() {
             userId={userId}
             onBack={() => setView('home')}
             onNavigate={(v) => setView(v)}
-            onSuccess={() => setHasVoted(true)}
+            onSuccess={() => setVotedTeamIds(prev => [...prev, selectedTeam.id])}
           />
         )}
 
