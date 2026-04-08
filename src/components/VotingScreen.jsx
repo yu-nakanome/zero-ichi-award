@@ -1,13 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
-import GapSlider from './GapSlider';
 import { Zap, ExternalLink, Activity, Monitor, ChevronLeft, CheckCircle2 } from 'lucide-react';
 
+const METRICS = [
+  {
+    id: 'friction',
+    label: '摩擦熱',
+    description: '自分の時間・金・安定をどれだけ投入し、「拒絶や失敗（摩擦）」を経験するほどの圧倒的な行動量があったか。'
+  },
+  {
+    id: 'evolution',
+    label: '変異熱',
+    description: '過去の成功体験を捨て、現状の課題と向き合い、どれだけ速い進化の速度で自分自身や事業のアップデートを遂げたか。'
+  },
+  {
+    id: 'ignition',
+    label: '引火熱',
+    description: '描いている高いビジョンと、そこに至るための道のりが明確で、周囲に火をつけるほどの未来への推進力を持っているか。'
+  }
+];
 export default function VotingScreen({ team, userId, onBack, onNavigate, onSuccess }) {
   const [scores, setScores] = useState({
-    action: { me: 30, presenter: 70 },
-    evolution: { me: 40, presenter: 60 },
-    ignition: { me: 20, presenter: 80 },
+    friction: 50,
+    evolution: 50,
+    ignition: 50,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [result, setResult] = useState(null);
@@ -19,9 +35,9 @@ export default function VotingScreen({ team, userId, onBack, onNavigate, onSucce
 
     try {
       const myScores = {
-        friction: scores.action.presenter - scores.action.me,
-        evolution: scores.evolution.presenter - scores.evolution.me,
-        ignition: scores.ignition.presenter - scores.ignition.me,
+        friction: scores.friction - 50,
+        evolution: scores.evolution - 50,
+        ignition: scores.ignition - 50,
       };
 
       // 1. Supabaseへ送信 (Upsert)
@@ -147,34 +163,67 @@ export default function VotingScreen({ team, userId, onBack, onNavigate, onSucce
         </p>
       </div>
 
-      <div className="grid gap-3 pt-4">
-        <GapSlider
-          label="代謝・摩擦熱"
-          subtitle="泥臭い行動量・リスクテイク"
-          icon="🔥"
-          labelLeft="安定志向"
-          labelRight="泥臭い行動量"
-          value={scores.action}
-          onChange={(v) => setScores({ ...scores, action: v })}
-        />
-        <GapSlider
-          label="変異熱"
-          subtitle="ピボットの速さ・進化量"
-          icon="⚡"
-          labelLeft="昨日までの自分"
-          labelRight="異次元の脱皮"
-          value={scores.evolution}
-          onChange={(v) => setScores({ ...scores, evolution: v })}
-        />
-        <GapSlider
-          label="引火熱"
-          subtitle="ビジョンへの確信度・解像度"
-          icon="💡"
-          labelLeft="希望的観測"
-          labelRight="確定した未来"
-          value={scores.ignition}
-          onChange={(v) => setScores({ ...scores, ignition: v })}
-        />
+      <div className="space-y-4 pt-4">
+        {METRICS.map((metric) => (
+          <div key={metric.id} className="mb-14">
+            {/* 1. タイトルと詳細説明 */}
+            <div className="flex flex-col mb-8 text-left px-2">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-1.5 h-6 bg-brand-orange rounded-full" />
+                <h3 className="text-xl font-black italic tracking-wider">{metric.label}</h3>
+              </div>
+              <p className="text-[11px] text-white/70 leading-relaxed bg-white/5 p-4 rounded-xl border border-white/10 shadow-inner">
+                {metric.description}
+              </p>
+            </div>
+
+            {/* 2. スライダーエリア */}
+            <div className="relative pt-10 pb-12 px-2">
+              <div className="h-2 w-full bg-white/10 rounded-full relative">
+
+                {/* 自分（中央 50% 固定） */}
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+                  <div className="w-6 h-6 bg-white rounded-full shadow-[0_0_20px_rgba(255,255,255,0.4)] border-2 border-white" />
+                  <span className="absolute top-8 left-1/2 -translate-x-1/2 text-[10px] text-white font-bold whitespace-nowrap bg-white/20 px-2 py-0.5 rounded">
+                    自分
+                  </span>
+                </div>
+
+                {/* 登壇者（スライダー本体） */}
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={scores[metric.id]}
+                  onChange={(e) => setScores({ ...scores, [metric.id]: parseInt(e.target.value) })}
+                  className="absolute inset-0 w-full h-full appearance-none bg-transparent cursor-pointer z-20 custom-slider"
+                />
+
+                {/* 登壇者のラベル（丸の真上） */}
+                <div
+                  className="absolute -top-10 -translate-x-1/2 transition-all duration-75"
+                  style={{ left: `${scores[metric.id]}%` }}
+                >
+                  <div className="flex flex-col items-center">
+                    <span className="text-brand-orange text-[11px] font-black italic whitespace-nowrap mb-1">
+                      登壇者
+                    </span>
+                    <div className="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-t-[6px] border-t-brand-orange" />
+                  </div>
+                </div>
+
+                {/* ゲージの色 */}
+                <div
+                  className="absolute h-full bg-brand-orange/30 rounded-full"
+                  style={{
+                    left: scores[metric.id] < 50 ? `${scores[metric.id]}%` : '50%',
+                    right: scores[metric.id] > 50 ? `${100 - scores[metric.id]}%` : '50%'
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
 
       <button
