@@ -16,7 +16,7 @@ export default function ChatOverlay() {
         .select('content')
         .order('created_at', { ascending: false })
         .limit(15);
-      
+
       if (error) {
         console.error('Initial chat fetch failed:', error);
         return;
@@ -36,10 +36,10 @@ export default function ChatOverlay() {
     // 2. Realtime 購読開始
     const channel = supabase
       .channel('public:chats-global-overlay')
-      .on('postgres_changes', { 
-        event: 'INSERT', 
-        schema: 'public', 
-        table: 'chats' 
+      .on('postgres_changes', {
+        event: 'INSERT',
+        schema: 'public',
+        table: 'chats'
       }, payload => {
         console.log('Incoming Stream Comment:', payload.new.content);
         const newMsg = createComment(payload.new.content);
@@ -68,12 +68,12 @@ export default function ChatOverlay() {
   };
 
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden z-[100]">
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-[0]">
       {messages.map(msg => (
         <div
           key={msg.id}
           onAnimationEnd={() => handleEnd(msg.id)}
-          className="absolute whitespace-nowrap text-5xl font-black text-white drop-shadow-[0_2px_12px_rgba(0,0,0,1.0)] leading-none select-none chat-overlay italic tracking-tighter"
+          className="absolute whitespace-nowrap text-xl font-bold text-white/20 drop-shadow-[0_2px_12px_rgba(0,0,0,1.0)] leading-none select-none chat-overlay italic tracking-tighter"
           style={{
             top: msg.top,
             animationDuration: msg.duration,
