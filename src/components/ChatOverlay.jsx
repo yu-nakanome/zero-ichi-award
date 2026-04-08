@@ -77,7 +77,7 @@ export default function ChatOverlay() {
           style={{
             top: msg.top,
             // 今の秒数に「1.5」を掛けて、より長い時間をかけて流れるようにします
-            animationDuration: `${parseFloat(msg.duration) * 2.0}s`,
+            animationDuration: `${parseFloat(msg.duration) * 1.5}s`,
           }}
         >
           {msg.text}
