@@ -13,7 +13,6 @@ const TEAMS = [
   { id: 3, name: "Team C", status: "待機中", description: "教育の未来を変えるプロダクト" },
   { id: 4, name: "Team D", status: "待機中", description: "持続可能な食の革命" },
   { id: 5, name: "Team E", status: "待機中", description: "AIによるクリエイティブ支援" },
-  { id: 6, name: "Team F", status: "待機中", description: "宇宙を目指すモビリティ" },
 ];
 
 export default function App() {
@@ -22,7 +21,7 @@ export default function App() {
   const [selectedTeamId, setSelectedTeamId] = useState(null);
   const [activeTeamId, setActiveTeamId] = useState(1);
   const [unreadCount, setUnreadCount] = useState(0);
-
+  const isAdmin = window.location.search.includes('admin');
   useEffect(() => {
     if (!isSupabaseConfigured || !supabase) return;
 
@@ -198,23 +197,23 @@ export default function App() {
             <Home className="w-5 h-5" />
             <span className="text-[8px] font-black uppercase tracking-widest leading-none">Home</span>
           </button>
+          {isAdmin && (<>
+            <button
+              onClick={() => setView('gap')}
+              className={`flex flex-col items-center gap-1.5 transition-all ${view === 'gap' ? 'text-brand-orange scale-110' : 'text-white/20 hover:text-white/50'}`}
+            >
+              <Activity className="w-5 h-5" />
+              <span className="text-[8px] font-black uppercase tracking-widest leading-none">Gap</span>
+            </button>
 
-          <button
-            onClick={() => setView('gap')}
-            className={`flex flex-col items-center gap-1.5 transition-all ${view === 'gap' ? 'text-brand-orange scale-110' : 'text-white/20 hover:text-white/50'}`}
-          >
-            <Activity className="w-5 h-5" />
-            <span className="text-[8px] font-black uppercase tracking-widest leading-none">Gap</span>
-          </button>
-
-          <button
-            onClick={() => setView('screen')}
-            className={`flex flex-col items-center gap-1.5 transition-all ${view === 'screen' ? 'text-brand-orange scale-110' : 'text-white/20 hover:text-white/50'}`}
-          >
-            <Monitor className="w-5 h-5" />
-            <span className="text-[8px] font-black uppercase tracking-widest leading-none">Screen</span>
-          </button>
-
+            <button
+              onClick={() => setView('screen')}
+              className={`flex flex-col items-center gap-1.5 transition-all ${view === 'screen' ? 'text-brand-orange scale-110' : 'text-white/20 hover:text-white/50'}`}
+            >
+              <Monitor className="w-5 h-5" />
+              <span className="text-[8px] font-black uppercase tracking-widest leading-none">Screen</span>
+            </button>
+          </>)}
           <button
             onClick={() => setView('chat')}
             className={`flex flex-col items-center gap-1.5 transition-all ${view === 'chat' ? 'text-brand-orange scale-110' : 'text-white/20 hover:text-white/50'}`}
