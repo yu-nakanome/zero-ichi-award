@@ -190,6 +190,7 @@ export default function App() {
             userId={userId}
             onBack={() => setView('home')}
             onNavigate={(v) => setView(v)}
+            onSuccess={() => setHasVoted(true)}
           />
         )}
 
