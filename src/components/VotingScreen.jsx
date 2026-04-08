@@ -98,8 +98,11 @@ export default function VotingScreen({ team, userId, onBack, onNavigate, onSucce
 
           <div className="space-y-10">
             {[
-              { label: '代謝・摩擦熱', value: result.myGap.friction, avg: result.average.friction },
+              // 101行目
+              { label: '摩擦熱', value: result.myGap.friction, avg: result.average.friction },
+              // 102行目
               { label: '変異熱', value: result.myGap.evolution, avg: result.average.evolution },
+              // 103行目
               { label: '引火熱', value: result.myGap.ignition, avg: result.average.ignition }
             ].map((item, i) => (
               <div key={i} className="flex flex-col gap-4 group">
