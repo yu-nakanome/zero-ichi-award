@@ -188,7 +188,10 @@ export default function App() {
             userId={userId}
             onBack={() => setView('home')}
             onNavigate={(v) => setView(v)}
-            onSuccess={() => setVotedTeamIds(prev => [...prev, selectedTeam.id])}
+            onSuccess={() => {
+              setVotedTeamIds(prev => [...prev, selectedTeam.id]);
+              setView('home');
+            }}
           />
         )}
 
