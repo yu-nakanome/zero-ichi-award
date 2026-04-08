@@ -13,7 +13,6 @@ const TEAMS = [
   { id: 3, name: "Team C", status: "待機中", description: "教育の未来を変えるプロダクト" },
   { id: 4, name: "Team D", status: "待機中", description: "持続可能な食の革命" },
   { id: 5, name: "Team E", status: "待機中", description: "AIによるクリエイティブ支援" },
-  { id: 6, name: "Team F", status: "待機中", description: "宇宙を目指すモビリティ" },
 ];
 
 export default function App() {
