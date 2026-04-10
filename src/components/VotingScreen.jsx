@@ -255,21 +255,7 @@ export default function VotingScreen({ team, userId, onBack, onNavigate, onSucce
         {isSubmitting ? 'Transmitting...' : '⚡ 差分を同期して送信'}
       </button>
 
-      <div className="pt-14 border-t border-white/5">
-        <h3 className="text-[11px] font-black text-white/10 uppercase mb-6 flex items-center gap-3 tracking-[0.4em]">
-          <ExternalLink className="w-4 h-4" />
-          Agent_Action_Logs
-        </h3>
-        <div className="grid grid-cols-3 gap-4">
-          {[1, 2, 3].map(i => (
-            <div key={i} className="aspect-square bg-white/[0.02] rounded-2xl border border-white/5 overflow-hidden flex flex-col items-center justify-center group relative cursor-not-allowed transition-all opacity-40">
-              <span className="text-white/20 text-[9px] font-black uppercase tracking-tighter mb-1">Log_0{i}</span>
-              <span className="text-[8px] font-mono text-white/5 uppercase">Secure_Link</span>
-              <div className="absolute inset-x-0 bottom-0 h-[2px] bg-brand-orange scale-x-0 group-hover:scale-x-100 transition-transform origin-left opacity-30"></div>
-            </div>
-          ))}
-        </div>
-      </div>
+
     </div>
   );
 }
