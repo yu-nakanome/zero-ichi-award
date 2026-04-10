@@ -8,11 +8,46 @@ import ChatRoom from './components/ChatRoom';
 import { MessageSquare, Users, Award, ExternalLink, Zap, Monitor, Home, Activity, ShieldAlert } from 'lucide-react';
 
 const TEAMS = [
-  { id: 1, name: "JaoRium", status: "ピッチ中", description: "「情報戦」 に、 終止符を。「知らなかった」で夢を諦める人を、 ゼロにする。" },
-  { id: 2, name: "TOMOSHIBI", status: "待機中", description: "見過ごしていた景色に、あなただけの物語が宿る。" },
-  { id: 3, name: "Aun", status: "待機中", description: "阿吽の呼吸でビートメイク" },
-  { id: 4, name: "九大ギルド", status: "待機中", description: "挑戦者同士をつなぎ、九大で冒険的な世界を創出する。" },
-  { id: 5, name: "Q-delivery", status: "待機中", description: "九大生向け食品配送サービス" },
+  {
+    id: 1,
+    name: "JaoRium",
+    status: "ピッチ中",
+    description: "「情報戦」 に、 終止符を。「知らなかった」で夢を諦める人を、 ゼロにする。",
+    image: "https://drive.google.com/thumbnail?id=1awPgosvXM2R4l_CGOvubNKJuTBIWHQlY&sz=w1000",
+    photo: "https://drive.google.com/thumbnail?id=19vewqbD3XXP5fiif_DMuV7bHODWkTqiW&sz=w400"
+  },
+  {
+    id: 2,
+    name: "TOMOSHIBI",
+    status: "待機中",
+    description: "見過ごしていた景色に、あなただけの物語が宿る。",
+    image: "https://drive.google.com/thumbnail?id=1XLDS7DyKxUG6BbKP4llsttk49UQHTg2k&sz=w1000",
+    photo: "https://drive.google.com/thumbnail?id=1Ly8A1mUItI9I93V0oZqEKWlwzsm8jjlo&sz=w400"
+  },
+  {
+    id: 3,
+    name: "Aun",
+    status: "待機中",
+    description: "阿吽の呼吸でビートメイク",
+    image: "https://drive.google.com/thumbnail?id=10gNYneBOUlDm5gjtxlY02S8zWZysYMJn&sz=w1000",
+    photo: "https://drive.google.com/thumbnail?id=1em0Cg0jXvLB66W8oaBvcZfeOyoC-tlI9&sz=w400"
+  },
+  {
+    id: 4,
+    name: "九大ギルド",
+    status: "待機中",
+    description: "挑戦者同士をつなぎ、九大で冒険的な世界を創出する。",
+    image: "https://drive.google.com/thumbnail?id=1w8Ju356DSq5YLbwbryauRb25nZiIWxii&sz=w1000",
+    photo: "https://drive.google.com/thumbnail?id=1-3h-9vld-UsrjQrAgRgW4scs9rZxr-Ja&sz=w400"
+  },
+  {
+    id: 5,
+    name: "Q-delivery",
+    status: "待機中",
+    description: "九大生向け食品配送サービス",
+    image: "https://drive.google.com/thumbnail?id=1iK4tT-GaendqcjbXTdo0MFg6o3dkS_Oa&sz=w1000",
+    photo: "https://drive.google.com/thumbnail?id=18gqUww798lahqQoNigOSkVnDOQi6NQ41&sz=w400"
+  }
 ];
 
 export default function App() {
@@ -128,54 +163,66 @@ export default function App() {
       <main className="flex-1 p-4 max-w-md mx-auto w-full z-10">
 
         {view === 'home' && (
-          <div className="grid grid-cols-2 gap-4 pt-2 animate-in fade-in slide-in-from-bottom-4 duration-700">
+          <div className="grid grid-cols-1 gap-8 pt-2 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {TEAMS.map((team) => {
-              const isLive = false;
               const isThisTeamVoted = votedTeamIds.includes(team.id);
+
               return (
                 <div
                   key={team.id}
-                  className={`glass-card relative flex flex-col h-full border transition-all duration-500 ${isLive ? 'border-brand-orange shadow-[0_0_25px_rgba(255,77,0,0.3)] animate-glow' : 'border-white/5 opacity-80'
+                  className={`relative bg-[#1A1A1A] border transition-all duration-500 rounded-[32px] overflow-hidden shadow-2xl ${isThisTeamVoted ? 'border-white/5 opacity-80' : 'border-white/10 shadow-[0_0_20px_rgba(255,255,255,0.05)]'
                     }`}
                 >
-                  <div className="flex justify-between items-start mb-3">
-                    {isLive ? (
-                      <span className="flex items-center gap-1.5 px-2 py-0.5 bg-red-600/20 text-red-500 text-[9px] font-black rounded border border-red-500/30 uppercase">
-                        <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
-                        LIVE
-                      </span>
-                    ) : <div className="h-4"></div>}
-                    <span className="text-[9px] font-black text-white/20 ml-auto tracking-widest">0{team.id}</span>
+                  {/* 1. サービス画像エリア */}
+                  <div className="relative h-52 w-full overflow-hidden">
+                    <img
+                      src={team.image}
+                      alt={team.name}
+                      className="w-full h-full object-cover"
+                    />
+                    {/* 画像を暗くして文字を見やすくするグラデーション */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+
+                    <div className="absolute bottom-5 left-6 text-left">
+                      <span className="text-brand-orange text-[10px] font-black tracking-[0.2em] uppercase mb-1 block">TEAM 0{team.id}</span>
+                      <h3 className="text-2xl font-black text-white italic tracking-tight">{team.name}</h3>
+                    </div>
                   </div>
-                  <h3 className="text-sm font-black mb-1 line-clamp-1 leading-none">{team.name}</h3>
-                  <p className="text-[10px] text-white/40 mb-5 line-clamp-2 leading-tight flex-1">
-                    {team.description}
-                  </p>
-                  <button
-                    onClick={() => {
-                      if (!isThisTeamVoted) {
-                        setSelectedTeamId(team.id);
-                        setView('voting');
-                      }
-                    }}
-                    disabled={isThisTeamVoted}
-                    className={`w-full py-3 rounded-xl flex items-center justify-center gap-2 font-black text-[10px] transition-all ${isThisTeamVoted
-                      ? 'bg-white/10 text-white/20 cursor-not-allowed'
-                      : 'bg-brand-orange text-white hover:scale-[1.02] active:scale-95'
-                      }`}
-                  >
-                    {isThisTeamVoted ? (
-                      <>
-                        <span className="text-xs">✅</span>
-                        <span>投票済み</span>
-                      </>
-                    ) : (
-                      <>
-                        <Zap className="w-3.5 h-3.5 fill-current" />
-                        <span>⚡ 投票する</span>
-                      </>
-                    )}
-                  </button>
+
+                  {/* 2. コンテンツエリア */}
+                  <div className="p-6 text-left">
+                    <div className="flex gap-4 items-start mb-6">
+                      <div className="flex-shrink-0">
+                        {/* 本人写真（丸アイコン） */}
+                        <div className="w-14 h-14 rounded-full border-2 border-brand-orange/50 overflow-hidden bg-white/5 shadow-lg">
+                          <img src={team.photo} alt="Presenter" className="w-full h-full object-cover" />
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-white/80 text-[13px] font-medium leading-relaxed line-clamp-3">
+                          {team.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* 3. 投票ボタン */}
+                    <button
+                      onClick={() => {
+                        if (!isThisTeamVoted) {
+                          setSelectedTeamId(team.id);
+                          setView('voting');
+                        }
+                      }}
+                      disabled={isThisTeamVoted}
+                      className={`w-full py-4 rounded-2xl flex items-center justify-center gap-2 font-black italic transition-all ${isThisTeamVoted
+                          ? 'bg-white/10 text-white/20 cursor-not-allowed'
+                          : 'bg-brand-orange text-white shadow-[0_4px_20px_rgba(255,77,0,0.3)] active:scale-95'
+                        }`}
+                    >
+                      <Zap className="w-5 h-5 fill-current" />
+                      <span>{isThisTeamVoted ? '投票済みです' : '⚡ 熱量を送る'}</span>
+                    </button>
+                  </div>
                 </div>
               );
             })}
