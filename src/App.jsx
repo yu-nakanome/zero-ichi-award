@@ -13,8 +13,8 @@ const TEAMS = [
     name: "JaoRium",
     status: "ピッチ中",
     description: "「情報戦」 に、 終止符を。「知らなかった」で夢を諦める人を、 ゼロにする。",
-    image: "https://drive.google.com/thumbnail?id=1awPgosvXM2R4l_CGOvubNKJuTBIWHQlY&sz=w1000",
-    photo: "https://drive.google.com/thumbnail?id=19vewqbD3XXP5fiif_DMuV7bHODWkTqiW&sz=w400"
+    image: "https://drive.google.com/thumbnail?id=1w8Ju356DSq5YLbwbryauRb25nZiIWxii&sz=w1000",
+    photo: "https://drive.google.com/thumbnail?id=19vewqbd3XXP5fiif_DMuV7bHODWkTqiW&sz=w400"
   },
   {
     id: 2,
@@ -22,7 +22,7 @@ const TEAMS = [
     status: "待機中",
     description: "見過ごしていた景色に、あなただけの物語が宿る。",
     image: "https://drive.google.com/thumbnail?id=1XLDS7DyKxUG6BbKP4llsttk49UQHTg2k&sz=w1000",
-    photo: "https://drive.google.com/thumbnail?id=1Ly8A1mUItI9I93V0oZqEKWlwzsm8jjlo&sz=w400"
+    photo: "https://drive.google.com/thumbnail?id=1Ly8A1mUltI9l93V0oZqEKWIwzsm8jjIo&sz=w400"
   },
   {
     id: 3,
@@ -30,14 +30,14 @@ const TEAMS = [
     status: "待機中",
     description: "阿吽の呼吸でビートメイク",
     image: "https://drive.google.com/thumbnail?id=10gNYneBOUlDm5gjtxlY02S8zWZysYMJn&sz=w1000",
-    photo: "https://drive.google.com/thumbnail?id=1em0Cg0jXvLB66W8oaBvcZfeOyoC-tlI9&sz=w400"
+    photo: "https://drive.google.com/thumbnail?id=1em0Cg0jxVLB66W8oaBvcZfeOyoC-t1l9&sz=w400"
   },
   {
     id: 4,
     name: "九大ギルド",
     status: "待機中",
     description: "挑戦者同士をつなぎ、九大で冒険的な世界を創出する。",
-    image: "https://drive.google.com/thumbnail?id=1w8Ju356DSq5YLbwbryauRb25nZiIWxii&sz=w1000",
+    image: "https://drive.google.com/thumbnail?id=1awPgosvXM2R4l_CGOvubNKJuTBIWHQlY&sz=w1000",
     photo: "https://drive.google.com/thumbnail?id=1-3h-9vld-UsrjQrAgRgW4scs9rZxr-Ja&sz=w400"
   },
   {
@@ -46,7 +46,7 @@ const TEAMS = [
     status: "待機中",
     description: "九大生向け食品配送サービス",
     image: "https://drive.google.com/thumbnail?id=1iK4tT-GaendqcjbXTdo0MFg6o3dkS_Oa&sz=w1000",
-    photo: "https://drive.google.com/thumbnail?id=18gqUww798lahqQoNigOSkVnDOQi6NQ41&sz=w400"
+    photo: "https://drive.google.com/thumbnail?id=18gqUww798IahqQoNigOSkVnDOQi6NQ41&sz=w400"
   }
 ];
 
@@ -215,8 +215,8 @@ export default function App() {
                       }}
                       disabled={isThisTeamVoted}
                       className={`w-full py-4 rounded-2xl flex items-center justify-center gap-2 font-black italic transition-all ${isThisTeamVoted
-                          ? 'bg-white/10 text-white/20 cursor-not-allowed'
-                          : 'bg-brand-orange text-white shadow-[0_4px_20px_rgba(255,77,0,0.3)] active:scale-95'
+                        ? 'bg-white/10 text-white/20 cursor-not-allowed'
+                        : 'bg-brand-orange text-white shadow-[0_4px_20px_rgba(255,77,0,0.3)] active:scale-95'
                         }`}
                     >
                       <Zap className="w-5 h-5 fill-current" />
