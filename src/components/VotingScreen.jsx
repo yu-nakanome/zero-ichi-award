@@ -211,7 +211,28 @@ export default function VotingScreen({ team, userId, onBack, onNavigate, onSucce
                     <div className="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-t-[6px] border-t-brand-orange" />
                   </div>
                 </div>
+                {/* スライダーの左右の端にガイドを追加 */}
+                <div className="flex justify-between mt-12 px-2 relative z-10">
+                  {/* 左端 (0点) */}
+                  <div className="flex flex-col items-start w-1/2">
+                    <span className="text-white/20 text-[10px] font-black italic mb-1 uppercase tracking-tighter">MIN (0)</span>
+                    <span className="text-white/40 text-[9px] font-bold leading-tight text-left">
+                      {metric.id === 'friction' && "自分より行動していない"}
+                      {metric.id === 'evolution' && "自分より変化していない"}
+                      {metric.id === 'ignition' && "自分より未来を描けていない"}
+                    </span>
+                  </div>
 
+                  {/* 右端 (100点) */}
+                  <div className="flex flex-col items-end w-1/2 text-right">
+                    <span className="text-brand-orange/40 text-[10px] font-black italic mb-1 uppercase tracking-tighter">MAX (100)</span>
+                    <span className="text-white/40 text-[9px] font-bold leading-tight">
+                      {metric.id === 'friction' && "圧倒的行動・失敗"}
+                      {metric.id === 'evolution' && "猛スピードで進化"}
+                      {metric.id === 'ignition' && "周囲を巻き込む推進力"}
+                    </span>
+                  </div>
+                </div>
                 {/* ゲージの色 */}
                 <div
                   className="absolute h-full bg-brand-orange/30 rounded-full"
