@@ -204,6 +204,9 @@ export default function App() {
                         </div>
                       </div>
                       <div className="flex-1">
+                        <p className="text-brand-orange text-[10px] font-bold mb-1 opacity-80">
+                          {team.faculty}
+                        </p>
                         <p className="text-white/80 text-[13px] font-medium leading-relaxed line-clamp-3">
                           {team.description}
                         </p>
