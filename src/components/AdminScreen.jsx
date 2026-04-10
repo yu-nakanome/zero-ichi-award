@@ -5,11 +5,11 @@ import { Zap, ChevronLeft, Target, Users } from 'lucide-react';
 
 // 10行目のすぐ上に貼り付け
 const TEAMS = [
-  { id: 1, name: "九大ギルド" },
+  { id: 1, name: "JaoRium" },
   { id: 2, name: "TOMOSHIBI" },
-  { id: 3, name: "Q-delivery" },
-  { id: 4, name: "JaoRium" },
-  { id: 5, name: "Aun" },
+  { id: 3, name: "Aun" },
+  { id: 4, name: "九大ギルド" },
+  { id: 5, name: "Q-delivery" },
 ];
 
 /**
@@ -109,7 +109,7 @@ export default function AdminScreen({ onBack }) {
           <ChevronLeft className="w-6 h-6" />
         </button>
         <div className="flex bg-[#0A0A0A] p-1 rounded-xl border border-white/5">
-          {[1, 2, 3, 4, 5, 6].map(id => (
+          {[1, 2, 3, 4, 5].map(id => (
             <button
               key={id}
               onClick={() => setActiveTeam(id)}

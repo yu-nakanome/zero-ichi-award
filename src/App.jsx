@@ -8,11 +8,11 @@ import ChatRoom from './components/ChatRoom';
 import { MessageSquare, Users, Award, ExternalLink, Zap, Monitor, Home, Activity, ShieldAlert } from 'lucide-react';
 
 const TEAMS = [
-  { id: 1, name: "九大ギルド", status: "ピッチ中", description: "挑戦者同士をつなぎ、九大で冒険的な世界を創出する。" },
+  { id: 1, name: "JaoRium", status: "ピッチ中", description: "「情報戦」 に、 終止符を。「知らなかった」で夢を諦める人を、 ゼロにする。" },
   { id: 2, name: "TOMOSHIBI", status: "待機中", description: "見過ごしていた景色に、あなただけの物語が宿る。" },
-  { id: 3, name: "Q-delivery", status: "待機中", description: "九大生向け食品配送サービス" },
-  { id: 4, name: "JaoRium", status: "待機中", description: "「情報戦」 に、 終止符を。「知らなかった」で夢を諦める人を、 ゼロにする。" },
-  { id: 5, name: "Aun", status: "待機中", description: "阿吽の呼吸でビートメイク" },
+  { id: 3, name: "Aun", status: "待機中", description: "阿吽の呼吸でビートメイク" },
+  { id: 4, name: "九大ギルド", status: "待機中", description: "挑戦者同士をつなぎ、九大で冒険的な世界を創出する。" },
+  { id: 5, name: "Q-delivery", status: "待機中", description: "九大生向け食品配送サービス" },
 ];
 
 export default function App() {
