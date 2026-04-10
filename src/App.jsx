@@ -11,6 +11,7 @@ const TEAMS = [
   {
     id: 1,
     name: "JaoRium",
+    faculty: "農学部 1年",
     status: "ピッチ中",
     description: "「情報戦」 に、 終止符を。「知らなかった」で夢を諦める人を、 ゼロにする。",
     image: "https://drive.google.com/thumbnail?id=1w8Ju356DSq5YLbwbryauRb25nZiIWxii&sz=w1000",
@@ -19,6 +20,7 @@ const TEAMS = [
   {
     id: 2,
     name: "TOMOSHIBI",
+    faculty: "共創学部 4年",
     status: "待機中",
     description: "見過ごしていた景色に、あなただけの物語が宿る。",
     image: "https://drive.google.com/thumbnail?id=1XLDS7DyKxUG6BbKP4llsttk49UQHTg2k&sz=w1000",
@@ -27,6 +29,7 @@ const TEAMS = [
   {
     id: 3,
     name: "Aun",
+    faculty: "経済学部 4年",
     status: "待機中",
     description: "阿吽の呼吸でビートメイク",
     image: "https://drive.google.com/thumbnail?id=10gNYneBOUlDm5gjtxlY02S8zWZysYMJn&sz=w1000",
@@ -35,6 +38,7 @@ const TEAMS = [
   {
     id: 4,
     name: "九大ギルド",
+    faculty: "文学部 2年",
     status: "待機中",
     description: "挑戦者同士をつなぎ、九大で冒険的な世界を創出する。",
     image: "https://drive.google.com/thumbnail?id=1awPgosvXM2R4l_CGOvubNKJuTBIWHQlY&sz=w1000",
@@ -43,6 +47,7 @@ const TEAMS = [
   {
     id: 5,
     name: "Q-delivery",
+    faculty: "共創学部 4年",
     status: "待機中",
     description: "九大生向け食品配送サービス",
     image: "https://drive.google.com/thumbnail?id=1iK4tT-GaendqcjbXTdo0MFg6o3dkS_Oa&sz=w1000",
